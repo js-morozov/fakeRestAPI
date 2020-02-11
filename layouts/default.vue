@@ -48,7 +48,6 @@
       links: [
         { icon: 'mdi-account-group', text: 'Users', to: '/'},
         { icon: 'mdi-ballot-outline', text: 'Posts', to: '/posts'},
-        { icon: 'mdi-file-table-box-multiple-outline', text: 'Albums', to: '/albums'}
       ],
     }),
   }

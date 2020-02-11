@@ -36,7 +36,6 @@
         </v-card-text>
         <v-card-actions class="pa-5">
           <v-btn class="px-5" color="grey" dark>Posts</v-btn>
-          <v-btn class="px-5" color="grey" dark>Albums</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>

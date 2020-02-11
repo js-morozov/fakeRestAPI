@@ -20,16 +20,16 @@
 
 <script>
   export default {
-    asyncData ({$axios, error}) {
-      return $axios.$get('https://jsonplaceholder.typicode.com/users')
-        .then(users => {
-          return {
-            users
-          }
-        }).catch(e => {
-          error(e)
-        })
+    async fetch ({store, error}) {
+      if(store.getters['users/users'].length === 0) {
+        await store.dispatch('users/fetchUsers')
+      }
     },
-    data: () => ({})
+    data: () => ({}),
+    computed: {
+      users() {
+        return this.$store.getters['users/users']
+      }
+    }
   }
 </script>
