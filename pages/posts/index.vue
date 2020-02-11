@@ -54,18 +54,22 @@
 
 <script>
   export default {
-    asyncData ({$axios, error}) {
-      return $axios.$get('https://jsonplaceholder.typicode.com/posts')
-        .then(posts => {
-          return {
-            posts
-          }
-        }).catch(e => {
-          error(e)
-        })
-    },
+    // async fetch ({store, error}) {
+    //   try {
+    //     if(store.getters['posts/posts'].length === 0){
+    //       await store.dispatch('posts/fetchPosts')
+    //     }
+    //   } catch (e) {
+    //     error(e)
+    //   }
+    // },
     data: () => ({
       dialog: false
-    })
+    }),
+    computed: {
+      posts() {
+        return this.$store.getters['posts/posts']
+      }
+    }
   }
 </script>

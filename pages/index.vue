@@ -20,11 +20,11 @@
 
 <script>
   export default {
-    async fetch ({store, error}) {
-      if(store.getters['users/users'].length === 0) {
-        await store.dispatch('users/fetchUsers')
-      }
-    },
+    // async fetch ({store, error}) {
+    //   if(store.getters['users/users'].length === 0) {
+    //     await store.dispatch('users/fetchUsers')
+    //   }
+    // },
     data: () => ({}),
     computed: {
       users() {

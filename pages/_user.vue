@@ -1,5 +1,5 @@
 <template>
-  <v-layout>
+  <v-layout column>
     <v-flex xs12 sm8 md6>
       <h1 class="display-1 pb-5">User #{{ this.$route.params.user }}</h1>
       <v-card max-width="400">
@@ -34,9 +34,21 @@
             </v-list-item-content>
           </v-list-item>
         </v-card-text>
-        <v-card-actions class="pa-5">
-          <v-btn class="px-5" color="grey" dark>Posts</v-btn>
-        </v-card-actions>
+      </v-card>
+    </v-flex>
+    <v-flex xs12>
+      <h1 class="display-1 pt-10">Posts</h1>
+      <v-card class="my-5" tile>
+        <v-list>
+          <v-list-item-group color="primary">
+            <v-list-item v-for="(post, index) in postsByUserID" :key="post.id">
+              <v-list-item-content>
+                <v-list-item-title>{{ ++index }} - {{ post.title }}</v-list-item-title>
+                <v-list-item-subtitle>{{ post.body }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
       </v-card>
     </v-flex>
   </v-layout>
@@ -48,6 +60,11 @@
       const user = await $axios.$get('https://jsonplaceholder.typicode.com/users/' + params.user)
       return {user}
     },
-    data: () => ({})
+    data: () => ({}),
+    computed: {
+      postsByUserID() {
+        return this.$store.getters['posts/posts'].filter(item => item.userId === this.user.id)
+      }
+    }
   }
 </script>
