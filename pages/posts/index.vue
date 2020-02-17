@@ -11,19 +11,19 @@
           </template>
           <v-card>
             <v-card-title>
-              <span class="headline">Add new post</span>
+              <span class="headline">Add new post <v-progress-circular class="ml-4" v-show="loading" width="1" indeterminate size="24" /></span>
             </v-card-title>
             <v-card-text>
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="6">
-                    <v-select :items="['0-17', '18-29', '30-54', '54+']" label="User"></v-select>
+                    <v-select :items="$store.getters['users/userNames']" label="User" v-model="user"></v-select>
                   </v-col>
                   <v-col cols="12" sm="6">
-                    <v-text-field label="Title"></v-text-field>
+                    <v-text-field label="Title" v-model="title"></v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-textarea label="Text"></v-textarea>
+                    <v-textarea label="Text" v-model="text"></v-textarea>
                   </v-col>
                 </v-row>
               </v-container>
@@ -31,7 +31,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-              <v-btn color="blue darken-1" text @click="dialog = false">Save</v-btn>
+              <v-btn color="blue darken-1" text @click="savePost">Save</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -54,21 +54,44 @@
 
 <script>
   export default {
-    // async fetch ({store, error}) {
-    //   try {
-    //     if(store.getters['posts/posts'].length === 0){
-    //       await store.dispatch('posts/fetchPosts')
-    //     }
-    //   } catch (e) {
-    //     error(e)
-    //   }
-    // },
     data: () => ({
-      dialog: false
+      user: '',
+      title: '',
+      text: '',
+      dialog: false,
+      loading: false,
     }),
     computed: {
       posts() {
         return this.$store.getters['posts/posts']
+      }
+    },
+    methods: {
+      async savePost() {
+        this.loading = true
+        await fetch('https://jsonplaceholder.typicode.com/posts', {
+          method: 'POST',
+          body: JSON.stringify({
+            title: this.title,
+            body: this.text,
+            userId: await this.$store.dispatch('users/getUserIdByName', this.user)
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        })
+        .then(response => response.json())
+        .then(post => {
+          this.$store.commit('posts/addPost', post)
+          this.clearPopup()
+          this.loading = false
+        })
+      },
+      clearPopup() {
+        this.dialog = false
+        this.user = ''
+        this.title = ''
+        this.text = ''
       }
     }
   }

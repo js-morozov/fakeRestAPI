@@ -3,7 +3,8 @@ export const state = () => ({
 })
 
 export const getters = {
-    users: state => state.users
+    users: state => state.users,
+    userNames: state => state.users.map(user => user.name)
 }
 
 export const actions = {
@@ -14,6 +15,9 @@ export const actions = {
         } catch (e) {
             throw (e)
         }
+    },
+    getUserIdByName({state}, name) {
+        return state.users.filter(user => user.name === name)[0].id
     }
 }
 
