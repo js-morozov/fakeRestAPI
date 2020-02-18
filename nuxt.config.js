@@ -29,8 +29,7 @@ export default {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [
-  ],
+  plugins: ['~plugins/schedule'],
   /*
   ** Nuxt.js dev-modules
   */

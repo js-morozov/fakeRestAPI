@@ -48,6 +48,8 @@
       links: [
         { icon: 'mdi-account-group', text: 'Users', to: '/'},
         { icon: 'mdi-ballot-outline', text: 'Posts', to: '/posts'},
+        { icon: 'mdi-calendar-today', text: 'Timetable', to: '/timetable'},
+        { icon: 'mdi-calendar-today', text: 'Week plan', to: '/timetable/week'}
       ],
     }),
   }
