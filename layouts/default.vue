@@ -1,6 +1,5 @@
 <template>
   <v-app id="inspire">
-
     <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app>
       <v-list dense>
         <template v-for="(link, index) in links">
@@ -9,9 +8,7 @@
               <v-icon>{{ link.icon }}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>
-                {{ link.text }}
-              </v-list-item-title>
+              <v-list-item-title>{{ link.text }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </template>
@@ -37,20 +34,18 @@
         <nuxt />
       </v-container>
     </v-content>
-
   </v-app>
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      drawer: null,
-      links: [
-        { icon: 'mdi-account-group', text: 'Users', to: '/'},
-        { icon: 'mdi-ballot-outline', text: 'Posts', to: '/posts'},
-        { icon: 'mdi-calendar-today', text: 'Timetable', to: '/timetable'},
-        { icon: 'mdi-calendar-today', text: 'Week plan', to: '/timetable/week'}
-      ],
-    }),
-  }
+export default {
+  data: () => ({
+    drawer: null,
+    links: [
+      { icon: "mdi-account-group", text: "Users", to: "/" },
+      { icon: "mdi-ballot-outline", text: "Posts", to: "/posts" },
+      { icon: "mdi-calendar-today", text: "Timetable", to: "/timetable" }
+    ]
+  })
+};
 </script>
